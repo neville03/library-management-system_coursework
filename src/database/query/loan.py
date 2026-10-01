@@ -124,7 +124,7 @@ def checkout(isbn: str, borrower_id: int) -> OperationResult:
     return db.create_loan(isbn, borrower_id)
 
 def create_loan(isbn: str, borrower_id: int) -> OperationResult:
-       facts = CheckoutFacts(
+    facts = CheckoutFacts(
         borrower_exists=db.get_borrower_by_id(borrower_id) is not None,
         active_loan_count=len(db.get_loans_by_borrower_id(borrower_id, returned=False)),
         book_exists=db.get_book_by_isbn(isbn) is not None,
@@ -136,7 +136,7 @@ def create_loan(isbn: str, borrower_id: int) -> OperationResult:
 
     if refusal:
         return OperationResult(status=False, message=refusal)
-        
+
 
     sql = f"""
     INSERT INTO {BOOK_LOANS_TABLE_NAME} (
