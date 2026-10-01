@@ -124,45 +124,19 @@ def checkout(isbn: str, borrower_id: int) -> OperationResult:
     return db.create_loan(isbn, borrower_id)
 
 def create_loan(isbn: str, borrower_id: int) -> OperationResult:
-    borrower = db.get_borrower_by_id(borrower_id)
+       facts = CheckoutFacts(
+        borrower_exists=db.get_borrower_by_id(borrower_id) is not None,
+        active_loan_count=len(db.get_loans_by_borrower_id(borrower_id, returned=False)),
+        book_exists=db.get_book_by_isbn(isbn) is not None,
+        book_available=db.book_available_with_isbn(isbn),
+        has_unpaid_fines=bool(db.get_fines_by_borrower_id(borrower_id)),
+    )
 
-    if not borrower:
-        return OperationResult(
-            status=False,
-            message="Borrower not found"
-        )
+    refusal = check_checkout_rules(facts)
 
-    checkouts = db.get_loans_by_borrower_id(borrower_id, returned=False)
-
-    if checkouts and len(checkouts) >= 3:
-        return OperationResult(
-            status=False,
-            message="Too many checkouts"
-        )
-
-    book = db.get_book_by_isbn(isbn)
-
-    if not book:
-        return OperationResult(
-            status=False,
-            message="Book doesn't exist"
-        )
-
-    book_available = db.book_available_with_isbn(isbn)
-
-    if not book_available:
-        return OperationResult(
-            status=False,
-            message="Book already checked out."
-        )
-
-    borrowers_fines = db.get_fines_by_borrower_id(borrower_id)
-
-    if borrowers_fines and len(borrowers_fines) > 0:
-        return OperationResult(
-            status=False,
-            message="Borrower has pending fines."
-        )
+    if refusal:
+        return OperationResult(status=False, message=refusal)
+        
 
     sql = f"""
     INSERT INTO {BOOK_LOANS_TABLE_NAME} (
@@ -177,7 +151,7 @@ def create_loan(isbn: str, borrower_id: int) -> OperationResult:
     today = db.get_current_date() or date.today()
 
     date_out = today.isoformat()
-    due_date = due_date_for(today).isoformat()
+    due_date =  due_date_for(today).isoformat()
 
     params = [isbn, borrower_id, date_out, due_date]
 
