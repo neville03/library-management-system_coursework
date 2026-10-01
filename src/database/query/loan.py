@@ -150,10 +150,7 @@ def create_loan(isbn: str, borrower_id: int) -> OperationResult:
 
     today = db.get_current_date() or date.today()
 
-    date_out = today.isoformat()
-    due_date =  due_date_for(today).isoformat()
-
-    params = [isbn, borrower_id, date_out, due_date]
+    params = [isbn, borrower_id, today.isoformat(), due_date_for(today).isoformat()]
 
     return OperationResult(
         status=query.try_execute_one(sql, params),
