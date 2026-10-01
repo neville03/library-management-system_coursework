@@ -1,0 +1,59 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\kutee\OneDrive\Desktop\lib\library-management-system_coursework-3\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\kutee\OneDrive\Desktop\lib\library-management-system_coursework-3
+configfile: pytest.ini
+testpaths: tests
+plugins: cov-7.1.0
+collecting ... collected 42 items
+
+tests/test_behaviour.py::TestCheckout::test_successful_checkout_creates_loan_due_in_14_days PASSED [  2%]
+tests/test_behaviour.py::TestCheckout::test_unknown_borrower_is_rejected PASSED [  4%]
+tests/test_behaviour.py::TestCheckout::test_unknown_book_is_rejected PASSED [  7%]
+tests/test_behaviour.py::TestCheckout::test_borrower_cannot_hold_more_than_three_books PASSED [  9%]
+tests/test_behaviour.py::TestCheckout::test_book_already_on_loan_cannot_be_checked_out_again PASSED [ 11%]
+tests/test_behaviour.py::TestCheckout::test_borrower_with_unpaid_fine_cannot_check_out PASSED [ 14%]
+tests/test_behaviour.py::TestCheckout::test_book_availability_follows_loan_state PASSED [ 16%]
+tests/test_behaviour.py::TestCheckin::test_checkin_records_current_date PASSED [ 19%]
+tests/test_behaviour.py::TestCheckin::test_checkin_many_returns_every_selected_book PASSED [ 21%]
+tests/test_behaviour.py::TestFines::test_overdue_loan_is_fined_25_cents_per_day PASSED [ 23%]
+tests/test_behaviour.py::TestFines::test_loan_that_is_not_overdue_has_no_fine PASSED [ 26%]
+tests/test_behaviour.py::TestFines::test_is_overdue_property PASSED      [ 28%]
+tests/test_behaviour.py::TestFines::test_returned_loan_is_never_overdue PASSED [ 30%]
+tests/test_behaviour.py::TestFines::test_payment_below_total_is_rejected PASSED [ 33%]
+tests/test_behaviour.py::TestFines::test_cannot_pay_fine_while_book_still_out PASSED [ 35%]
+tests/test_behaviour.py::TestFines::test_paying_full_amount_after_return_clears_fines PASSED [ 38%]
+tests/test_behaviour.py::TestFines::test_paying_when_no_fines_exist_is_rejected PASSED [ 40%]
+tests/test_behaviour.py::TestFines::test_paying_for_unknown_borrower_is_rejected PASSED [ 42%]
+tests/test_behaviour.py::TestCreateBorrower::test_valid_borrower_is_stored_with_normalised_ssn_and_phone PASSED [ 45%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[-123-45-6789-addr-(123) 456-7890-Name] PASSED [ 47%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[A--addr-(123) 456-7890-SSN] PASSED [ 50%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[A-123-45-6789--(123) 456-7890-Address] PASSED [ 52%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[A-123-45-6789-addr--Phone] PASSED [ 54%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_ssn_is_rejected[12345678] PASSED [ 57%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_ssn_is_rejected[1234567890] PASSED [ 59%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_ssn_is_rejected[abc-de-fghi] PASSED [ 61%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_phone_is_rejected[12345] PASSED [ 64%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_phone_is_rejected[12345678901] PASSED [ 66%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_phone_is_rejected[abcdefghij] PASSED [ 69%]
+tests/test_behaviour.py::TestCreateBorrower::test_duplicate_ssn_is_rejected PASSED [ 71%]
+tests/test_behaviour.py::TestSearch::test_search_books_by_title_is_case_insensitive PASSED [ 73%]
+tests/test_behaviour.py::TestSearch::test_empty_search_returns_nothing PASSED [ 76%]
+tests/test_behaviour.py::TestSearch::test_availability_filter_separates_loaned_books PASSED [ 78%]
+tests/test_behaviour.py::TestSearch::test_borrower_search_reports_loan_count_and_unpaid_fines PASSED [ 80%]
+tests/test_known_defects.py::test_DEFECT_partial_isbn_resolves_to_a_different_book PASSED [ 83%]
+tests/test_known_defects.py::test_DEFECT_failed_borrower_insert_still_reports_success_message PASSED [ 85%]
+tests/test_known_defects.py::test_DEFECT_failed_checkout_insert_still_reports_success_message PASSED [ 88%]
+tests/test_known_defects.py::test_DEFECT_checkin_of_nonexistent_loan_reports_success PASSED [ 90%]
+tests/test_known_defects.py::test_DEFECT_late_return_does_not_update_the_fine PASSED [ 92%]
+tests/test_known_defects.py::test_DEFECT_foreign_keys_are_not_enforced PASSED [ 95%]
+tests/test_known_defects.py::test_DEFECT_unwritable_database_path_raises_instead_of_failing_gracefully PASSED [ 97%]
+tests/test_known_defects.py::test_DEFECT_ssn_is_stored_in_plaintext PASSED [100%]
+
+============================== warnings summary ===============================
+src\models\result.py:7
+  C:\Users\kutee\OneDrive\Desktop\lib\library-management-system_coursework-3\src\models\result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 42 passed, 1 warning in 12.06s ========================
