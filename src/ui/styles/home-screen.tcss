@@ -14,6 +14,10 @@ HomeScreen .menu-grid {
     height: 16;
 }
 
+HomeScreen .footer {
+    height: auto;
+}
+
 HomeScreen .menu-btn {
     width: 100%;
     height: 100%;
