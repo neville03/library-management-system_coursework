@@ -3,8 +3,6 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, ConfigDict
 
-import database as db
-
 class Author(BaseModel):
     id: int = Field(alias='Author_id')
     name: str = Field(alias='Name')
@@ -38,12 +36,6 @@ class Loan(BaseModel):
     def is_overdue_on(self, today: date) -> bool:
         return self.date_in is None and today > self.due_date
 
-    @property
-    def is_overdue(self) -> bool:
-        not_returned = (self.date_in is None)
-        past_due = (db.get_current_date() > self.due_date)
-
-        return not_returned and past_due
 
 class Fine(BaseModel):
     loan_id: int = Field(alias='Loan_id')
