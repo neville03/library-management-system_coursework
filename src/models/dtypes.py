@@ -35,6 +35,9 @@ class Loan(BaseModel):
     due_date: date = Field(alias='Due_date')
     date_in: Optional[date] = Field(alias='Date_in')
 
+    def is_overdue_on(self, today: date) -> bool:
+        return self.date_in is None and today > self.due_date
+
     @property
     def is_overdue(self) -> bool:
         not_returned = (self.date_in is None)
