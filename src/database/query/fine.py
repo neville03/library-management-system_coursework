@@ -1,7 +1,7 @@
 from typing import Optional
 from datetime import date
 
-from models import FineSearchResult
+from models import FineSearchResult #imported
 from fine_rules import calculate_fine_cents
 from database.names import (
     FINES_TABLE_NAME,
@@ -160,6 +160,11 @@ def update_fines() -> bool:
     fines_to_update = []
 
     for loan in overdue_loans:
+        # loan_id = loan.id
+        # days_overdue = (today - loan.due_date).days
+        # fine_amt = days_overdue * 25
+        # fines_to_update.append((loan_id, fine_amt))
+        
         fine_amt = calculate_fine_cents(loan.due_date, today)
 
         fines_to_update.append((loan.id, fine_amt))
