@@ -1,10 +1,11 @@
-from datetime import date, timedelta
+from datetime import date
 
 from database.names import (
     BOOK_LOANS_TABLE_NAME,
 )
 
 from models import Loan
+from loan_rules import CheckoutFacts, check_checkout_rules, due_date_for
 
 import database as db
 from models.result import OperationResult
@@ -176,7 +177,7 @@ def create_loan(isbn: str, borrower_id: int) -> OperationResult:
     today = db.get_current_date() or date.today()
 
     date_out = today.isoformat()
-    due_date = (today + timedelta(days=14)).isoformat()
+    due_date = due_date_for(today).isoformat()
 
     params = [isbn, borrower_id, date_out, due_date]
 
