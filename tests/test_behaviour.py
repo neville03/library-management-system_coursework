@@ -130,19 +130,17 @@ class TestFines:
     def test_is_overdue_property(self, library):
         db.create_loan(some_isbns(1)[0], 1)
         loan = db.get_loans_by_borrower_id(1)[0]
-        assert loan.is_overdue is False
+        assert loan.is_overdue_on(START) is False
 
-        set_today(START + timedelta(days=15))
-        assert loan.is_overdue is True
+        assert loan.is_overdue_on(START + timedelta(days=15)) is True
 
     def test_returned_loan_is_never_overdue(self, library):
         db.create_loan(some_isbns(1)[0], 1)
         db.checkin(db.get_loans_by_borrower_id(1)[0].id)
-        set_today(START + timedelta(days=60))
 
         returned = db.get_loans_by_borrower_id(1, returned=True)[0]
 
-        assert returned.is_overdue is False
+        assert returned.is_overdue_on(START + timedelta(days=60)) is False
 
     def _overdue_returned_borrower(self):
         """Borrower 1: 10 days late, book returned, fine 250 outstanding."""
