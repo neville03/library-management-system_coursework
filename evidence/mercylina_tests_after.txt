@@ -1,0 +1,68 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- c:\Users\kutee\OneDrive\Desktop\library-management-system_coursework-3\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\kutee\OneDrive\Desktop\library-management-system_coursework-3
+configfile: pytest.ini
+testpaths: tests
+plugins: cov-7.1.0
+collecting ... collected 51 items
+
+tests/test_behaviour.py::TestCheckout::test_successful_checkout_creates_loan_due_in_14_days PASSED [  1%]
+tests/test_behaviour.py::TestCheckout::test_unknown_borrower_is_rejected PASSED [  3%]
+tests/test_behaviour.py::TestCheckout::test_unknown_book_is_rejected PASSED [  5%]
+tests/test_behaviour.py::TestCheckout::test_borrower_cannot_hold_more_than_three_books PASSED [  7%]
+tests/test_behaviour.py::TestCheckout::test_book_already_on_loan_cannot_be_checked_out_again PASSED [  9%]
+tests/test_behaviour.py::TestCheckout::test_borrower_with_unpaid_fine_cannot_check_out PASSED [ 11%]
+tests/test_behaviour.py::TestCheckout::test_book_availability_follows_loan_state PASSED [ 13%]
+tests/test_behaviour.py::TestCheckin::test_checkin_records_current_date PASSED [ 15%]
+tests/test_behaviour.py::TestCheckin::test_checkin_many_returns_every_selected_book PASSED [ 17%]
+tests/test_behaviour.py::TestFines::test_overdue_loan_is_fined_25_cents_per_day PASSED [ 19%]
+tests/test_behaviour.py::TestFines::test_loan_that_is_not_overdue_has_no_fine PASSED [ 21%]
+tests/test_behaviour.py::TestFines::test_is_overdue_property PASSED      [ 23%]
+tests/test_behaviour.py::TestFines::test_returned_loan_is_never_overdue PASSED [ 25%]
+tests/test_behaviour.py::TestFines::test_payment_below_total_is_rejected PASSED [ 27%]
+tests/test_behaviour.py::TestFines::test_cannot_pay_fine_while_book_still_out PASSED [ 29%]
+tests/test_behaviour.py::TestFines::test_paying_full_amount_after_return_clears_fines PASSED [ 31%]
+tests/test_behaviour.py::TestFines::test_paying_when_no_fines_exist_is_rejected PASSED [ 33%]
+tests/test_behaviour.py::TestFines::test_paying_for_unknown_borrower_is_rejected PASSED [ 35%]
+tests/test_behaviour.py::TestCreateBorrower::test_valid_borrower_is_stored_with_normalised_ssn_and_phone PASSED [ 37%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[-123-45-6789-addr-(123) 456-7890-Name] PASSED [ 39%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[A--addr-(123) 456-7890-SSN] PASSED [ 41%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[A-123-45-6789--(123) 456-7890-Address] PASSED [ 43%]
+tests/test_behaviour.py::TestCreateBorrower::test_empty_fields_are_rejected_and_named[A-123-45-6789-addr--Phone] PASSED [ 45%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_ssn_is_rejected[12345678] PASSED [ 47%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_ssn_is_rejected[1234567890] PASSED [ 49%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_ssn_is_rejected[abc-de-fghi] PASSED [ 50%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_phone_is_rejected[12345] PASSED [ 52%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_phone_is_rejected[12345678901] PASSED [ 54%]
+tests/test_behaviour.py::TestCreateBorrower::test_invalid_phone_is_rejected[abcdefghij] PASSED [ 56%]
+tests/test_behaviour.py::TestCreateBorrower::test_duplicate_ssn_is_rejected PASSED [ 58%]
+tests/test_behaviour.py::TestSearch::test_search_books_by_title_is_case_insensitive PASSED [ 60%]
+tests/test_behaviour.py::TestSearch::test_empty_search_returns_nothing PASSED [ 62%]
+tests/test_behaviour.py::TestSearch::test_availability_filter_separates_loaned_books PASSED [ 64%]
+tests/test_behaviour.py::TestSearch::test_borrower_search_reports_loan_count_and_unpaid_fines PASSED [ 66%]
+tests/test_known_defects.py::test_DEFECT_partial_isbn_resolves_to_a_different_book PASSED [ 68%]
+tests/test_known_defects.py::test_DEFECT_failed_borrower_insert_still_reports_success_message PASSED [ 70%]
+tests/test_known_defects.py::test_DEFECT_failed_checkout_insert_still_reports_success_message PASSED [ 72%]
+tests/test_known_defects.py::test_DEFECT_checkin_of_nonexistent_loan_reports_success PASSED [ 74%]
+tests/test_known_defects.py::test_DEFECT_late_return_does_not_update_the_fine PASSED [ 76%]
+tests/test_known_defects.py::test_DEFECT_foreign_keys_are_not_enforced PASSED [ 78%]
+tests/test_known_defects.py::test_DEFECT_unwritable_database_path_raises_instead_of_failing_gracefully PASSED [ 80%]
+tests/test_known_defects.py::test_DEFECT_ssn_is_stored_in_plaintext PASSED [ 82%]
+tests/test_query_helpers.py::test_get_one_or_none_returns_a_row_with_named_columns PASSED [ 84%]
+tests/test_query_helpers.py::test_get_one_or_none_returns_none_when_nothing_matches PASSED [ 86%]
+tests/test_query_helpers.py::test_get_all_or_none_returns_every_row PASSED [ 88%]
+tests/test_query_helpers.py::test_reads_return_none_when_the_database_file_is_missing PASSED [ 90%]
+tests/test_query_helpers.py::test_reads_return_none_on_invalid_sql_instead_of_raising PASSED [ 92%]
+tests/test_query_helpers.py::test_try_execute_one_commits_and_reports_success PASSED [ 94%]
+tests/test_query_helpers.py::test_try_execute_one_reports_failure_on_constraint_violation PASSED [ 96%]
+tests/test_query_helpers.py::test_try_execute_many_is_all_or_nothing PASSED [ 98%]
+tests/test_query_helpers.py::test_try_execute_many_commits_every_row_on_success PASSED [100%]
+
+============================== warnings summary ===============================
+src\models\result.py:7
+  C:\Users\kutee\OneDrive\Desktop\library-management-system_coursework-3\src\models\result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 51 passed, 1 warning in 19.11s ========================

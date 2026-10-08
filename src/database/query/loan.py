@@ -1,10 +1,11 @@
-from datetime import date, timedelta
+from datetime import date
 
 from database.names import (
     BOOK_LOANS_TABLE_NAME,
 )
 
 from models import Loan
+from loan_rules import CheckoutFacts, check_checkout_rules, due_date_for
 
 import database as db
 from models.result import OperationResult
@@ -16,18 +17,18 @@ def search_loans(isbn: str | None = None,
                  name: str | None = None,
                  returned: bool = False) -> list[Loan]:
     sql = f"""
-    SELECT
-        l.Loan_id,
-        l.Isbn,
-        l.Card_id,
-        b.Title,
-        l.Date_out,
-        l.Due_date,
-        l.Date_in
-    FROM BOOK_LOANS l
-    JOIN BOOK b ON b.Isbn = l.Isbn
-    JOIN BORROWER br ON br.Card_id = l.Card_id
-    """
+SELECT
+l.Loan_id,
+l.Isbn,
+l.Card_id,
+b.Title,
+l.Date_out,
+l.Due_date,
+l.Date_in
+FROM BOOK_LOANS l
+JOIN BOOK b ON b.Isbn = l.Isbn
+JOIN BORROWER br ON br.Card_id = l.Card_id
+        """
 
     conditions = []
     params = []
@@ -63,122 +64,100 @@ def search_loans(isbn: str | None = None,
     return [Loan(**dict(result)) for result in results]
 
 def get_all_loans(overdue: bool = False, returned: bool = False) -> list[Loan]:
-    return [loan for loan in db.search_loans(returned=returned) if not overdue or loan.is_overdue]
+    loans = db.search_loans(returned=returned)
+
+    if not overdue:
+        return loans
+
+    today = db.get_current_date()
+
+    return [loan for loan in loans if loan.is_overdue_on(today)]
 
 def get_loans_by_borrower_id(borrower_id: int, returned: bool = False) -> list[Loan]:
     sql = f"""
-    SELECT
-        l.Loan_id,
-        l.Isbn,
-        l.Card_id,
-        b.Title,
-        l.Date_out,
-        l.Due_date,
-        l.Date_in
-    FROM BOOK_LOANS l
-    JOIN BOOK b ON b.Isbn = l.Isbn
-    WHERE l.Card_id = ?
-    """
-    
+SELECT
+l.Loan_id,
+l.Isbn,
+l.Card_id,
+b.Title,
+l.Date_out,
+l.Due_date,
+l.Date_in
+FROM BOOK_LOANS l
+JOIN BOOK b ON b.Isbn = l.Isbn
+WHERE l.Card_id = ?
+        """
+
     if not returned:
         sql += " AND l.Date_in IS NULL"
-    
+
     sql += " ORDER BY l.Date_out DESC"
-    
+
     results = query.get_all_or_none(sql, [borrower_id])
-    
+
     if not results:
         return []
-    
+
     return [Loan(**dict(result)) for result in results]
 
 def get_loans_by_isbn(isbn: str, returned: bool = False) -> list[Loan]:
     sql = f"""
-    SELECT
-        l.Loan_id,
-        l.Isbn,
-        l.Card_id,
-        b.Title,
-        l.Date_out,
-        l.Due_date,
-        l.Date_in
-    FROM BOOK_LOANS l
-    JOIN BOOK b ON b.Isbn = l.Isbn
-    WHERE l.Isbn = ?
-    """
-    
+SELECT
+l.Loan_id,
+l.Isbn,
+l.Card_id,
+b.Title,
+l.Date_out,
+l.Due_date,
+l.Date_in
+FROM BOOK_LOANS l
+JOIN BOOK b ON b.Isbn = l.Isbn
+WHERE l.Isbn = ?
+        """
+
     if not returned:
         sql += " AND l.Date_in IS NULL"
-    
+
     sql += " ORDER BY l.Date_out DESC"
-    
+
     results = query.get_all_or_none(sql, [isbn])
-    
+
     if not results:
         return []
-    
+
     return [Loan(**dict(result)) for result in results]
 
 def checkout(isbn: str, borrower_id: int) -> OperationResult:
     return db.create_loan(isbn, borrower_id)
 
 def create_loan(isbn: str, borrower_id: int) -> OperationResult:
-    borrower = db.get_borrower_by_id(borrower_id)
+    facts = CheckoutFacts(
+        borrower_exists=db.get_borrower_by_id(borrower_id) is not None,
+        active_loan_count=len(db.get_loans_by_borrower_id(borrower_id, returned=False)),
+        book_exists=db.get_book_by_isbn(isbn) is not None,
+        book_available=db.book_available_with_isbn(isbn),
+        has_unpaid_fines=bool(db.get_fines_by_borrower_id(borrower_id)),
+    )
 
-    if not borrower:
-        return OperationResult(
-            status=False,
-            message="Borrower not found"
-        )
+    refusal = check_checkout_rules(facts)
 
-    checkouts = db.get_loans_by_borrower_id(borrower_id, returned=False)
+    if refusal:
+        return OperationResult(status=False, message=refusal)
 
-    if checkouts and len(checkouts) >= 3:
-        return OperationResult(
-            status=False,
-            message="Too many checkouts"
-        )
-
-    book = db.get_book_by_isbn(isbn)
-
-    if not book:
-        return OperationResult(
-            status=False,
-            message="Book doesn't exist"
-        )
-
-    book_available = db.book_available_with_isbn(isbn)
-
-    if not book_available:
-        return OperationResult(
-            status=False,
-            message="Book already checked out."
-        )
-
-    borrowers_fines = db.get_fines_by_borrower_id(borrower_id)
-
-    if borrowers_fines and len(borrowers_fines) > 0:
-        return OperationResult(
-            status=False,
-            message="Borrower has pending fines."
-        )
 
     sql = f"""
-    INSERT INTO {BOOK_LOANS_TABLE_NAME} (
-        Isbn,
-        Card_id,
-        Date_out,
-        Due_date,
-        Date_in
-    ) VALUES (?, ?, ?, ?, NULL)
-    """
+        INSERT INTO {BOOK_LOANS_TABLE_NAME} (
+Isbn,
+Card_id,
+Date_out,
+Due_date,
+Date_in
+) VALUES (?, ?, ?, ?, NULL)
+        """
 
     today = db.get_current_date() or date.today()
 
-    date_out = today.isoformat()
-    due_date = (today + timedelta(days=14)).isoformat()
-
-    params = [isbn, borrower_id, date_out, due_date]
+    params = [isbn, borrower_id, today.isoformat(), due_date_for(today).isoformat()]
 
     return OperationResult(
         status=query.try_execute_one(sql, params),
@@ -205,9 +184,9 @@ def checkin(loan_id: int) -> OperationResult:
 def resolve_loan(loan_id: int) -> OperationResult:
     sql = f"""
         UPDATE {BOOK_LOANS_TABLE_NAME}
-        SET Date_in = ?
-        WHERE Loan_id = ?
-    """
+SET Date_in = ?
+WHERE Loan_id = ?
+        """
 
     today = db.get_current_date() or date.today()
     date_in = today.isoformat()

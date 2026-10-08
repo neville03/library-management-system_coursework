@@ -1,0 +1,43 @@
+..................................FF........                             [100%]
+=================================== FAILURES ===================================
+___________________ test_models_can_be_imported_on_their_own ___________________
+
+    def test_models_can_be_imported_on_their_own():
+        """A domain model must not need the database layer just to be imported."""
+        result = subprocess.run(
+            [sys.executable, "-c", "import models"],
+            cwd=SRC, capture_output=True, text=True,
+        )
+    
+>       assert result.returncode == 0, result.stderr.strip().splitlines()[-1]
+E       AssertionError: ImportError: cannot import name 'Author' from partially initialized module 'models' (most likely due to a circular import) (/Users/walter/Desktop/Adv-coursework/library-management-system_coursework/src/models/__init__.py)
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/walter/Desktop/Adv-coursework/library-management-system_coursework/.venv/bin/python', '...circular import) (/Users/walter/Desktop/Adv-coursework/library-management-system_coursework/src/models/__init__.py)\n').returncode
+
+tests/test_design_issue.py:27: AssertionError
+________ test_overdue_check_cost_does_not_grow_with_the_number_of_loans ________
+
+template_db = '/private/var/folders/6_/7wdxwcfj50s4slx9fp_l6pqc0000gn/T/pytest-of-walter/pytest-3/template0/template.db'
+tmp_path = PosixPath('/private/var/folders/6_/7wdxwcfj50s4slx9fp_l6pqc0000gn/T/pytest-of-walter/pytest-3/test_overdue_check_cost_does_n0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1089502f0>
+
+    def test_overdue_check_cost_does_not_grow_with_the_number_of_loans(template_db, tmp_path, monkeypatch):
+        """Today it opens one extra database connection for every loan checked."""
+        few = _connections_to_find_overdue_loans(template_db, tmp_path, 2, monkeypatch)
+        many = _connections_to_find_overdue_loans(template_db, tmp_path, 6, monkeypatch)
+    
+>       assert many == few, f"2 loans used {few} connections but 6 loans used {many}"
+E       AssertionError: 2 loans used 3 connections but 6 loans used 7
+E       assert 7 == 3
+
+tests/test_design_issue.py:61: AssertionError
+=============================== warnings summary ===============================
+src/models/result.py:7
+  /Users/walter/Desktop/Adv-coursework/library-management-system_coursework/src/models/result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_design_issue.py::test_models_can_be_imported_on_their_own
+FAILED tests/test_design_issue.py::test_overdue_check_cost_does_not_grow_with_the_number_of_loans
+2 failed, 42 passed, 1 warning in 11.61s

@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/walter/Desktop/Adv-coursework/library-management-system_coursework/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/walter/Desktop/Adv-coursework/library-management-system_coursework
+configfile: pytest.ini
+plugins: cov-7.1.0
+collecting ... collected 2 items
+
+tests/test_design_issue.py::test_models_can_be_imported_on_their_own PASSED [ 50%]
+tests/test_design_issue.py::test_overdue_check_cost_does_not_grow_with_the_number_of_loans PASSED [100%]
+
+=============================== warnings summary ===============================
+src/models/result.py:7
+  /Users/walter/Desktop/Adv-coursework/library-management-system_coursework/src/models/result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 2 passed, 1 warning in 3.20s =========================
