@@ -2,7 +2,8 @@ from typing import Optional
 from datetime import date
 
 from models import FineSearchResult #imported
-from fine_rules import calculate_fine_cents
+# from fine_rules import calculate_fine_cents
+from fine_rules import FinePolicy, PerDayFinePolicy
 from database.names import (
     FINES_TABLE_NAME,
     BOOK_LOANS_TABLE_NAME,
@@ -139,7 +140,9 @@ def resolve_fines(loan_ids: list[int]) -> bool:
 
     return query.try_execute_many(sql, params)
 
-def update_fines() -> bool:
+def update_fines(
+    policy: FinePolicy = PerDayFinePolicy()
+) -> bool:
     last_update = db.get_fines_last_updated()
     today = db.get_current_date()
 
@@ -160,12 +163,10 @@ def update_fines() -> bool:
     fines_to_update = []
 
     for loan in overdue_loans:
-        # loan_id = loan.id
-        # days_overdue = (today - loan.due_date).days
-        # fine_amt = days_overdue * 25
-        # fines_to_update.append((loan_id, fine_amt))
-        
-        fine_amt = calculate_fine_cents(loan.due_date, today)
+        fine_amt = policy.calculate_fine_cents(
+            loan.due_date,
+            today
+        )
 
         fines_to_update.append((loan.id, fine_amt))
 
