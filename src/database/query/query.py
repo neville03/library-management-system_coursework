@@ -1,18 +1,21 @@
-import os
-import sqlite3
 from contextlib import contextmanager
 from typing import Any, Callable, Iterator, Optional
 
-from database import config
+from database.connection import Database, SqliteDatabase
+
+_database: Database = SqliteDatabase()
+
+
+def set_database(database: Database) -> None:
+    """Swap the database the helpers talk to (e.g. a test or another backend)."""
+    global _database
+    _database = database
 
 
 @contextmanager
-def _connection(named_columns: bool = False) -> Iterator[sqlite3.Connection]:
-    """Open the configured database and always close it again."""
-    conn = sqlite3.connect(config.db_name)
-
-    if named_columns:
-        conn.row_factory = sqlite3.Row
+def _connection(named_columns: bool = False) -> Iterator[Any]:
+    """Open the injected database and always close it again."""
+    conn = _database.connect(named_columns)
 
     try:
         yield conn
@@ -20,14 +23,14 @@ def _connection(named_columns: bool = False) -> Iterator[sqlite3.Connection]:
         conn.close()
 
 
-def _read(sql: str, params: list, fetch: Callable[[sqlite3.Cursor], Any]) -> Optional[Any]:
-    if not os.path.isfile(config.db_name):
+def _read(sql: str, params: list, fetch: Callable[[Any], Any]) -> Optional[Any]:
+    if not _database.exists():
         return None
 
     with _connection(named_columns=True) as conn:
         try:
             return fetch(conn.execute(sql, params))
-        except sqlite3.Error as e:
+        except _database.errors as e:
             print(e)
             return None
 
@@ -39,7 +42,7 @@ def _write(sql: str, params: list, many: bool) -> bool:
             (cursor.executemany if many else cursor.execute)(sql, params)
             conn.commit()
             return True
-        except sqlite3.Error as e:
+        except _database.errors as e:
             print(e)
             conn.rollback()
             return False
