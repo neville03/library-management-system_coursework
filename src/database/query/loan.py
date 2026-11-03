@@ -12,6 +12,8 @@ from models.result import OperationResult
 
 from . import query
 
+NEWEST_FIRST = " ORDER BY l.Date_out DESC"
+
 def search_loans(isbn: str | None = None,
                  borrower_id: str | None = None,
                  name: str | None = None,
@@ -54,7 +56,7 @@ JOIN BORROWER br ON br.Card_id = l.Card_id
         else:
             sql += " AND (" + " OR ".join(conditions) + ")"
 
-    sql += " ORDER BY l.Date_out DESC"
+    sql += NEWEST_FIRST
 
     results = query.get_all_or_none(sql, params)
 
@@ -91,7 +93,7 @@ WHERE l.Card_id = ?
     if not returned:
         sql += " AND l.Date_in IS NULL"
 
-    sql += " ORDER BY l.Date_out DESC"
+    sql += NEWEST_FIRST
 
     results = query.get_all_or_none(sql, [borrower_id])
 
@@ -118,7 +120,7 @@ WHERE l.Isbn = ?
     if not returned:
         sql += " AND l.Date_in IS NULL"
 
-    sql += " ORDER BY l.Date_out DESC"
+    sql += NEWEST_FIRST
 
     results = query.get_all_or_none(sql, [isbn])
 
