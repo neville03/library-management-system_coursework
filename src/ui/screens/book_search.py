@@ -44,10 +44,10 @@ class BookSearchScreen(SearchScreen):
         return data.isbn
 
     def handle_response(self, new_query: str | None) -> None:
-        input = self.query_one(Input)
+        input_box = self.query_one(Input)
 
         if new_query:
-            input.value = new_query
-            self.handle_search(input.value)
+            input_box.value = new_query
+            self.handle_search(input_box.value)
         else:
-            self.handle_search(input.value)
+            self.handle_search(input_box.value)
