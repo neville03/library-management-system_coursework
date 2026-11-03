@@ -92,7 +92,7 @@ class SettingsModal(BaseModal):
                 self.notify("Time reset successfully!", severity="information")
                 self.dismiss()
             else:
-                self.notify(f"Unable to reset the databse time!", severity="error")
+                self.notify("Unable to reset the databse time!", severity="error")
 
         elif event.button.id == "load-data-button":
             success = db.load_additional_test_data(config.db_name)
@@ -101,10 +101,10 @@ class SettingsModal(BaseModal):
                 self.notify("Additional test data loaded!", severity="information")
                 self.dismiss()
             else:
-                self.notify(f"Unable to load additional test data!", severity="error")
+                self.notify("Unable to load additional test data!", severity="error")
 
         elif event.button.id == "close-button":
             if db.exists(config.db_name) and db.is_initialized():
                 self.dismiss()
             else:
-                self.notify(f"You must initialize the database first!", severity="error")
+                self.notify("You must initialize the database first!", severity="error")

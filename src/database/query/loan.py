@@ -16,7 +16,7 @@ def search_loans(isbn: str | None = None,
                  borrower_id: str | None = None,
                  name: str | None = None,
                  returned: bool = False) -> list[Loan]:
-    sql = f"""
+    sql = """
 SELECT
 l.Loan_id,
 l.Isbn,
@@ -74,7 +74,7 @@ def get_all_loans(overdue: bool = False, returned: bool = False) -> list[Loan]:
     return [loan for loan in loans if loan.is_overdue_on(today)]
 
 def get_loans_by_borrower_id(borrower_id: int, returned: bool = False) -> list[Loan]:
-    sql = f"""
+    sql = """
 SELECT
 l.Loan_id,
 l.Isbn,
@@ -101,7 +101,7 @@ WHERE l.Card_id = ?
     return [Loan(**dict(result)) for result in results]
 
 def get_loans_by_isbn(isbn: str, returned: bool = False) -> list[Loan]:
-    sql = f"""
+    sql = """
 SELECT
 l.Loan_id,
 l.Isbn,

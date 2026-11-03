@@ -58,7 +58,7 @@ class BorrowerDetailModal(BaseModal):
 
             with Vertical(classes="form-content"):
                 if not self.borrower_data:
-                    yield Label(f"Unable to access borrower data")
+                    yield Label("Unable to access borrower data")
                 else:
                     with TabbedContent():
                         with TabPane("Info"):
