@@ -59,7 +59,7 @@ def main() -> None:
 
         if args.testdata:
             print("Loading additional data for testing.")
-            success = db.load_additional_test_data(db_name)
+            db.load_additional_test_data(db_name)
 
     if not db_exists:
         print("You must first initialize a database.")
