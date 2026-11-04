@@ -73,7 +73,7 @@ def _insert_data(data: CSVData) -> bool:
         try:
             c.executemany(sql_query, data_values)
             conn.commit()
-        except sqlite3.Error as e:
+        except sqlite3.Error:
             conn.rollback()
 
             return False

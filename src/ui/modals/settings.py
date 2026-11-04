@@ -46,10 +46,10 @@ class SettingsModal(BaseModal):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "change-db-button":
-            input = self.query_one("#db-input", Input)
+            input_box = self.query_one("#db-input", Input)
 
-            if input.value:
-                config.set_db_name(input.value)
+            if input_box.value:
+                config.set_db_name(input_box.value)
 
                 self.notify("Database file changed!", severity="information")
                 self.notify("Unless a database already exists at this location, you must initialize it.", severity="warning")
@@ -92,7 +92,7 @@ class SettingsModal(BaseModal):
                 self.notify("Time reset successfully!", severity="information")
                 self.dismiss()
             else:
-                self.notify(f"Unable to reset the databse time!", severity="error")
+                self.notify("Unable to reset the databse time!", severity="error")
 
         elif event.button.id == "load-data-button":
             success = db.load_additional_test_data(config.db_name)
@@ -101,10 +101,10 @@ class SettingsModal(BaseModal):
                 self.notify("Additional test data loaded!", severity="information")
                 self.dismiss()
             else:
-                self.notify(f"Unable to load additional test data!", severity="error")
+                self.notify("Unable to load additional test data!", severity="error")
 
         elif event.button.id == "close-button":
             if db.exists(config.db_name) and db.is_initialized():
                 self.dismiss()
             else:
-                self.notify(f"You must initialize the database first!", severity="error")
+                self.notify("You must initialize the database first!", severity="error")

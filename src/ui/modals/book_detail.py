@@ -106,10 +106,10 @@ class BookDetailModal(BaseModal):
             self.dismiss()
 
         elif event.button.id == 'checkout-button':
-            input = self.query_one(Input)
+            input_box = self.query_one(Input)
 
             try:
-                result = db.create_loan(self.book_data.isbn, int(input.value))
+                result = db.create_loan(self.book_data.isbn, int(input_box.value))
             except ValueError:
                 self.notify("You must provide a number.", severity="error")
                 return

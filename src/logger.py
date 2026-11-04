@@ -9,22 +9,22 @@ class _Logger:
     def write(self, value: str = "") -> None:
         self._results.append(value)
 
-    def writeAll(self, values: list[str]) -> None:
+    def write_all(self, values: list[str]) -> None:
         for value in values:
             self._results.append(value)
 
     def error(self, value: str = "") -> None:
         self.write(value)
-        self.setError()
+        self.set_error()
 
-    def errorAll(self, values: list[str]) -> None:
-        self.writeAll(values)
-        self.setError()
+    def error_all(self, values: list[str]) -> None:
+        self.write_all(values)
+        self.set_error()
 
-    def setError(self, ev: bool = True) -> None:
+    def set_error(self, ev: bool = True) -> None:
         self._errored = self._errored or ev
 
-    def hasErrored(self) -> bool:
+    def has_errored(self) -> bool:
         return self._errored
 
     def clear(self) -> None:
@@ -41,6 +41,6 @@ class _Logger:
         return results
 
     def __str__(self) -> str:
-        return "\n".join([result for result in self._results])
+        return "\n".join(self._results)
 
 Logger = _Logger()

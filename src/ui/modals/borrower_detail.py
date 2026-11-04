@@ -58,7 +58,7 @@ class BorrowerDetailModal(BaseModal):
 
             with Vertical(classes="form-content"):
                 if not self.borrower_data:
-                    yield Label(f"Unable to access borrower data")
+                    yield Label("Unable to access borrower data")
                 else:
                     with TabbedContent():
                         with TabPane("Info"):
@@ -130,12 +130,11 @@ class BorrowerDetailModal(BaseModal):
             else:
                 self.notify("You must make a selection.", severity="warning")
 
-        elif event.button.id == 'pay-button':
-            if self.borrower_data:
-                result = db.pay_fines(self.borrower_data.id, self.total_fines)
+        elif event.button.id == 'pay-button' and self.borrower_data:
+            result = db.pay_fines(self.borrower_data.id, self.total_fines)
 
-                if result.status:
-                    self.notify(result.message, severity="information")
-                    self.dismiss()
-                else:
-                    self.notify(result.message, severity="error")
+            if result.status:
+                self.notify(result.message, severity="information")
+                self.dismiss()
+            else:
+                self.notify(result.message, severity="error")
