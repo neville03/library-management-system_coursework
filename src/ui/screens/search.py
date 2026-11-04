@@ -1,4 +1,5 @@
-from typing import Callable, Any, Optional
+from typing import Any, Optional
+from collections.abc import Callable
 
 from textual import on
 from textual.app import ComposeResult

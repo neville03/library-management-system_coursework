@@ -27,7 +27,7 @@ def _read_borrowers() -> Optional[StringMatrix]:
     borrowers_result: StringMatrix = []
 
     try:
-        with open('data/borrower.csv', 'r', encoding='utf-8') as file:
+        with open('data/borrower.csv', encoding='utf-8') as file:
             rows = list(csv.reader(file))
 
             for row in rows[1:]:
@@ -51,7 +51,7 @@ def _read_books() -> Optional[tuple[StringMatrix, StringMatrix, StringMatrix]]:
     book_authors_data: StringMatrix = []
 
     try:
-        with open('data/book.csv', 'r', encoding='utf-8') as file:
+        with open('data/book.csv', encoding='utf-8') as file:
             rows = list(csv.reader(file, delimiter='\t'))
 
             author_id_incr = 0
