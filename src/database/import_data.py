@@ -5,6 +5,11 @@ from typing import Optional
 from database.dtypes import CSVData, StringMatrix
 import database as db
 
+import random
+import sqlite3
+from datetime import date, timedelta
+from database.names import BOOK_LOANS_TABLE_NAME
+
 def from_csv() -> Optional[CSVData]:
 
     books_data = _read_books()
@@ -85,11 +90,6 @@ def _read_books() -> Optional[tuple[StringMatrix, StringMatrix, StringMatrix]]:
 
     return (books_data, book_authors_data, authors_data)
 
-import random
-import sqlite3
-from datetime import date, timedelta
-
-from database.names import BOOK_LOANS_TABLE_NAME
 
 def load_additional_test_data(db_name: str) -> bool:
     try:
