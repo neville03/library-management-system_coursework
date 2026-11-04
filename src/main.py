@@ -43,12 +43,12 @@ def main() -> None:
                 db.delete(db_name)
             else:
                 print(f"A database already exists at '{db_name}'. Either:")
-                print(f"- Remove the init command line flag to use this database,")
+                print("- Remove the init command line flag to use this database,")
                 print(f"- Delete/Rename the file at '{db_name}', or")
-                print(f"- Pass the force flag to override this error.")
+                print("- Pass the force flag to override this error.")
                 exit(1)
 
-        print(f"Initializing the database.")
+        print("Initializing the database.")
         db_exists = db.init(db_name)
 
         if db_exists:
@@ -58,8 +58,8 @@ def main() -> None:
             exit(1)
 
         if args.testdata:
-            print(f"Loading additional data for testing.")
-            success = db.load_additional_test_data(db_name)
+            print("Loading additional data for testing.")
+            db.load_additional_test_data(db_name)
 
     if not db_exists:
         print("You must first initialize a database.")

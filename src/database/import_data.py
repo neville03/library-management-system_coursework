@@ -24,18 +24,16 @@ def from_csv() -> Optional[CSVData]:
     return (books, book_authors, authors, borrowers)
 
 def _read_borrowers() -> Optional[StringMatrix]:
-    # borrowers_data = [['Card_id', 'Ssn', 'Bname', 'Address', 'Phone']]
     borrowers_result: StringMatrix = []
 
     try:
         with open('data/borrower.csv', 'r', encoding='utf-8') as file:
             rows = list(csv.reader(file))
-            header = rows[0]
 
             for row in rows[1:]:
                 row = [html.unescape(field) for field in row]
 
-                [idn, ssn, fname, lname, email, addr, city, state, phone] = row
+                [idn, ssn, fname, lname, _, addr, city, state, phone] = row
                 full_name = f'{fname} {lname}'
                 address = f'{addr}, {city}, {state}'
 
@@ -55,15 +53,14 @@ def _read_books() -> Optional[tuple[StringMatrix, StringMatrix, StringMatrix]]:
     try:
         with open('data/book.csv', 'r', encoding='utf-8') as file:
             rows = list(csv.reader(file, delimiter='\t'))
-            header = rows[0]
 
             author_id_incr = 0
-            author_set = dict()
+            author_set = {}
 
             for row in rows[1:]:
                 row = [html.unescape(field) for field in row]
 
-                [isbn10, isbn13, title, authors, cover, pub, pages] = row
+                [isbn10, _, title, authors, _, _, _] = row
 
                 new_book = [isbn10, title]
                 books_data.append(new_book)

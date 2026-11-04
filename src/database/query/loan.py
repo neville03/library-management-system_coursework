@@ -12,11 +12,13 @@ from models.result import OperationResult
 
 from . import query
 
+NEWEST_FIRST = " ORDER BY l.Date_out DESC"
+
 def search_loans(isbn: str | None = None,
                  borrower_id: str | None = None,
                  name: str | None = None,
                  returned: bool = False) -> list[Loan]:
-    sql = f"""
+    sql = """
 SELECT
 l.Loan_id,
 l.Isbn,
@@ -54,7 +56,7 @@ JOIN BORROWER br ON br.Card_id = l.Card_id
         else:
             sql += " AND (" + " OR ".join(conditions) + ")"
 
-    sql += " ORDER BY l.Date_out DESC"
+    sql += NEWEST_FIRST
 
     results = query.get_all_or_none(sql, params)
 
@@ -74,7 +76,7 @@ def get_all_loans(overdue: bool = False, returned: bool = False) -> list[Loan]:
     return [loan for loan in loans if loan.is_overdue_on(today)]
 
 def get_loans_by_borrower_id(borrower_id: int, returned: bool = False) -> list[Loan]:
-    sql = f"""
+    sql = """
 SELECT
 l.Loan_id,
 l.Isbn,
@@ -91,7 +93,7 @@ WHERE l.Card_id = ?
     if not returned:
         sql += " AND l.Date_in IS NULL"
 
-    sql += " ORDER BY l.Date_out DESC"
+    sql += NEWEST_FIRST
 
     results = query.get_all_or_none(sql, [borrower_id])
 
@@ -101,7 +103,7 @@ WHERE l.Card_id = ?
     return [Loan(**dict(result)) for result in results]
 
 def get_loans_by_isbn(isbn: str, returned: bool = False) -> list[Loan]:
-    sql = f"""
+    sql = """
 SELECT
 l.Loan_id,
 l.Isbn,
@@ -118,7 +120,7 @@ WHERE l.Isbn = ?
     if not returned:
         sql += " AND l.Date_in IS NULL"
 
-    sql += " ORDER BY l.Date_out DESC"
+    sql += NEWEST_FIRST
 
     results = query.get_all_or_none(sql, [isbn])
 
