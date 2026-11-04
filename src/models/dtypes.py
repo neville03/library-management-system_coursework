@@ -23,6 +23,7 @@ class Borrower(BaseModel):
     name: str = Field(alias='Bname')
     address: str = Field(alias='Address')
     phone: str = Field(alias='Phone')
+    
 
 class Loan(BaseModel):
     id: int = Field(alias='Loan_id')

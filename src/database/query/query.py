@@ -62,3 +62,4 @@ def try_execute_many(sql: str, params: list) -> bool:
 
 def try_execute_one(sql: str, params: list) -> bool:
     return _write(sql, params, many=False)
+ 
