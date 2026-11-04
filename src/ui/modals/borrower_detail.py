@@ -4,7 +4,7 @@ from models.result import BorrowerSearchResult
 from textual import on
 from textual.app import ComposeResult
 from textual.containers import Container, Horizontal, Vertical
-from textual.widgets import Label, Button, TabbedContent, TabPane, DataTable, Static, Input, SelectionList
+from textual.widgets import Label, Button, TabbedContent, TabPane, DataTable, Static, SelectionList
 
 from ui.custom import BaseModal
 

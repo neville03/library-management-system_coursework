@@ -1,0 +1,90 @@
+src/database/__init__.py:1:1: F403 `from .initialize import *` used; unable to detect undefined names
+src/database/__init__.py:2:26: F401 `.import_data.load_additional_test_data` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/database/__init__.py:4:1: F403 `from database.query.author import *` used; unable to detect undefined names
+src/database/__init__.py:5:1: F403 `from database.query.book import *` used; unable to detect undefined names
+src/database/__init__.py:6:1: F403 `from database.query.borrower import *` used; unable to detect undefined names
+src/database/__init__.py:7:1: F403 `from database.query.fine import *` used; unable to detect undefined names
+src/database/__init__.py:8:1: F403 `from database.query.loan import *` used; unable to detect undefined names
+src/database/__init__.py:9:1: F403 `from database.query.metadata import *` used; unable to detect undefined names
+src/database/__init__.py:10:1: F403 `from database.query.conf import *` used; unable to detect undefined names
+src/database/connection.py:3:1: UP035 [*] Import from `collections.abc` instead: `Callable`
+src/database/import_data.py:13:19: UP045 [*] Use `X | None` for type annotations
+src/database/import_data.py:26:26: UP045 [*] Use `X | None` for type annotations
+src/database/import_data.py:31:40: UP015 [*] Unnecessary mode argument
+src/database/import_data.py:33:13: F841 Local variable `header` is assigned to but never used
+src/database/import_data.py:50:22: UP045 [*] Use `X | None` for type annotations
+src/database/import_data.py:56:36: UP015 [*] Unnecessary mode argument
+src/database/import_data.py:58:13: F841 Local variable `header` is assigned to but never used
+src/database/initialize.py:76:33: F841 [*] Local variable `e` is assigned to but never used
+src/database/query/author.py:10:41: UP045 [*] Use `X | None` for type annotations
+src/database/query/book.py:15:45: UP045 [*] Use `X | None` for type annotations
+src/database/query/book.py:79:36: UP045 [*] Use `X | None` for type annotations
+src/database/query/borrower.py:56:38: UP045 [*] Use `X | None` for type annotations
+src/database/query/borrower.py:59:45: UP045 [*] Use `X | None` for type annotations
+src/database/query/borrower.py:62:47: UP045 [*] Use `X | None` for type annotations
+src/database/query/conf.py:6:27: UP045 [*] Use `X | None` for type annotations
+src/database/query/fine.py:82:33: UP045 [*] Use `X | None` for type annotations
+src/database/query/loan.py:19:11: F541 [*] f-string without any placeholders
+src/database/query/loan.py:77:11: F541 [*] f-string without any placeholders
+src/database/query/loan.py:104:11: F541 [*] f-string without any placeholders
+src/database/query/metadata.py:7:28: UP045 [*] Use `X | None` for type annotations
+src/database/query/query.py:2:1: UP035 [*] Import from `collections.abc` instead: `Callable`, `Iterator`
+src/database/query/query.py:26:67: UP045 [*] Use `X | None` for type annotations
+src/database/query/query.py:51:48: UP045 [*] Use `X | None` for type annotations
+src/database/query/query.py:55:48: UP045 [*] Use `X | None` for type annotations
+src/loan_rules.py:23:51: UP045 [*] Use `X | None` for type annotations
+src/main.py:46:23: F541 [*] f-string without any placeholders
+src/main.py:48:23: F541 [*] f-string without any placeholders
+src/main.py:51:15: F541 [*] f-string without any placeholders
+src/main.py:61:19: F541 [*] f-string without any placeholders
+src/main.py:62:13: F841 Local variable `success` is assigned to but never used
+src/models/__init__.py:2:1: F403 `from .dtypes import *` used; unable to detect undefined names
+src/models/__init__.py:3:1: F403 `from .result import *` used; unable to detect undefined names
+src/models/dtypes.py:34:14: UP045 [*] Use `X | None` for type annotations
+src/models/result.py:7:34: UP046 Generic class `OperationResult` uses `Generic` subclass instead of type parameters
+src/models/result.py:10:11: UP045 [*] Use `X | None` for type annotations
+src/models/result.py:20:18: UP045 [*] Use `X | None` for type annotations
+src/models/result.py:75:14: UP045 [*] Use `X | None` for type annotations
+src/ui/components/__init__.py:2:21: F401 `.navbar.NavbarComponent` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/components/__init__.py:3:18: F401 `.tag.Tag` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/custom/__init__.py:2:1: F403 `from .base_modal import *` used; unable to detect undefined names
+src/ui/custom/base_modal.py:8:33: UP046 Generic class `BaseModal` uses `Generic` subclass instead of type parameters
+src/ui/modals/__init__.py:1:19: F401 `.quit.QuitModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:2:26: F401 `.time_travel.TimeTravelModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:3:21: F401 `.filter.FilterModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:4:23: F401 `.settings.SettingsModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:5:26: F401 `.init_prompt.InitModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:7:26: F401 `.book_detail.BookDetailModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:8:30: F401 `.borrower_detail.BorrowerDetailModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/__init__.py:10:30: F401 `.create_borrower.CreateBorrowerModal` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/modals/book_detail.py:29:13: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/book_detail.py:31:21: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/book_detail.py:48:21: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/book_detail.py:79:21: SIM117 [*] Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/borrower_detail.py:61:33: F541 [*] f-string without any placeholders
+src/ui/modals/borrower_detail.py:64:25: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/borrower_detail.py:72:25: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/borrower_detail.py:102:25: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/borrower_detail.py:133:9: SIM102 Use a single `if` statement instead of nested `if` statements
+src/ui/modals/settings.py:37:17: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/modals/settings.py:95:29: F541 [*] f-string without any placeholders
+src/ui/modals/settings.py:104:29: F541 [*] f-string without any placeholders
+src/ui/modals/settings.py:110:29: F541 [*] f-string without any placeholders
+src/ui/modals/time_travel.py:23:13: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/screens/__init__.py:2:21: F401 `.search.SearchScreen` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/screens/__init__.py:3:26: F401 `.book_search.BookSearchScreen` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/screens/__init__.py:4:30: F401 `.borrower_search.BorrowerSearchScreen` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/screens/__init__.py:5:19: F401 `.home.HomeScreen` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+src/ui/screens/book_search.py:15:46: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/borrower_search.py:15:50: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/home.py:19:38: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/home.py:29:9: SIM117 Use a single `with` statement with multiple contexts instead of nested `with` statements
+src/ui/screens/home.py:81:44: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/search.py:1:1: UP035 [*] Import from `collections.abc` instead: `Callable`
+src/ui/screens/search.py:20:35: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/search.py:22:18: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/search.py:24:29: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/search.py:25:23: UP045 [*] Use `X | None` for type annotations
+src/ui/screens/search.py:106:13: F841 Local variable `row_key` is assigned to but never used
+Found 88 errors.
+[*] 46 fixable with `--fix` (7 unsafe fixes available with `--fix --unsafe-fixes`).

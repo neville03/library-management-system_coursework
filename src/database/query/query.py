@@ -1,5 +1,6 @@
 from contextlib import contextmanager
-from typing import Any, Callable, Iterator, Optional
+from typing import Any, Optional
+from collections.abc import Callable, Iterator
 
 from database.connection import Database, SqliteDatabase
 
