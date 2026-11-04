@@ -85,10 +85,14 @@ def _get_borrower(column: str, param: str) -> Optional[Borrower]:
 def create_borrower(name: str, ssn: str, address: str, phone: str) -> OperationResult:
     if not (name and ssn and address and phone):
         missing_fields = []
-        if not name: missing_fields.append("Name")
-        if not ssn: missing_fields.append("SSN")
-        if not address: missing_fields.append("Address")
-        if not phone: missing_fields.append("Phone")
+        if not name:
+            missing_fields.append("Name")
+        if not ssn:
+            missing_fields.append("SSN")
+        if not address:
+            missing_fields.append("Address")
+        if not phone:
+            missing_fields.append("Phone")
 
         return OperationResult(
             status=False,
