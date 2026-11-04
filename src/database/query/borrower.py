@@ -13,7 +13,6 @@ from models.result import OperationResult
 
 from . import query
 
-from logger import Logger
 
 def search_borrowers(search_term: str) -> list[BorrowerSearchResult]:
     if not search_term:
