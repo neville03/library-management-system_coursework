@@ -1,0 +1,9 @@
+28	UP045 	[*] non-pep604-annotation-optional
+15	F401  	[ ] unused-import
+11	F403  	[ ] undefined-local-with-import-star
+10	SIM117	[-] multiple-with-statements
+ 3	UP035 	[*] deprecated-import
+ 2	UP046 	[ ] non-pep695-generic-class
+ 2	UP015 	[*] redundant-open-modes
+Found 71 errors.
+[*] 34 fixable with `--fix` (2 unsafe fixes available with `--fix --unsafe-fixes`).
