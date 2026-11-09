@@ -1,0 +1,445 @@
+Run started:2026-11-04 09:30:58.532862+00:00
+
+Test results:
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
+   Location: src/database/import_data.py:110:20
+109	        
+110	        num_loans = random.randint(200, 500)
+111	        
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
+   Location: src/database/import_data.py:113:22
+112	        for _ in range(num_loans):
+113	            card_id = random.randint(1, 1000)
+114	            isbn = random.choice(all_isbns)
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
+   Location: src/database/import_data.py:114:19
+113	            card_id = random.randint(1, 1000)
+114	            isbn = random.choice(all_isbns)
+115	            
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
+   Location: src/database/import_data.py:116:23
+115	            
+116	            days_ago = random.randint(0, 90)
+117	            date_out = today - timedelta(days=days_ago)
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
+   Location: src/database/import_data.py:121:26
+120	            
+121	            is_returned = random.random() < 0.7 # pct chance
+122	            
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random
+   Location: src/database/import_data.py:125:33
+124	                max_days_to_return = (today - date_out).days
+125	                days_to_return = random.randint(10, max(10, max_days_to_return))
+126	                date_in = date_out + timedelta(days=days_to_return)
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/import_data.py:147:18
+146	        
+147	        sql = f"""
+148	        INSERT INTO {BOOK_LOANS_TABLE_NAME} (
+149	            Isbn,
+150	            Card_id,
+151	            Date_out,
+152	            Due_date,
+153	            Date_in
+154	        ) VALUES (?, ?, ?, ?, ?)
+155	        """
+156	        
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/initialize.py:84:18
+83	    def insert_books() -> bool:
+84	        sql = f"""INSERT INTO {BOOKS_TABLE_NAME} (
+85	            Isbn, Title
+86	        ) VALUES (
+87	            ?, ?
+88	        );"""
+89	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/initialize.py:107:18
+106	    def insert_authors() -> bool:
+107	        sql = f"""INSERT INTO {AUTHORS_TABLE_NAME} (
+108	            Author_id, Name
+109	        ) VALUES (
+110	            ?, ?
+111	        );"""
+112	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/initialize.py:118:18
+117	    def insert_borrowers() -> bool:
+118	        sql = f"""INSERT INTO {BORROWERS_TABLE_NAME} (
+119	            Ssn, Bname, Address, Phone
+120	        ) VALUES (
+121	            ?, ?, ?, ?
+122	        );"""
+123	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/author.py:11:14
+10	def get_author_by_id(author_id: str) -> Optional[Author]:
+11	    sql = f"""
+12	    SELECT
+13	        Author_id,
+14	        Name
+15	    FROM {AUTHORS_TABLE_NAME}
+16	    WHERE Author_id = ?
+17	    """
+18	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/book.py:19:14
+18	
+19	    sql = f"""
+20	    SELECT
+21	        b.Isbn as Isbn,
+22	        b.Title as Title,
+23	        GROUP_CONCAT(a.Name, ', ') as Author_names,
+24	        GROUP_CONCAT(a.Author_id, ', ') as Author_ids,
+25	        CASE
+26	            WHEN l.Isbn IS NOT NULL THEN 0
+27	            ELSE 1
+28	        END as Status,
+29	        l.Card_id as Card_id
+30	    FROM {BOOKS_TABLE_NAME} b
+31	    LEFT JOIN {BOOK_AUTHORS_TABLE_NAME} ba ON ba.Isbn = b.Isbn
+32	    LEFT JOIN {AUTHORS_TABLE_NAME} a ON a.Author_id = ba.Author_id
+33	    LEFT JOIN {BOOK_LOANS_TABLE_NAME} l ON b.Isbn = l.Isbn AND l.Date_in IS NULL
+34	    LEFT JOIN {BORROWERS_TABLE_NAME} br ON br.Card_id = l.Card_id
+35	    GROUP BY b.Isbn
+36	    HAVING ("""
+37	    
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/book.py:91:14
+90	def book_available_with_isbn(isbn: str) -> bool:
+91	    sql = f"""
+92	    SELECT
+93	        COUNT(*) as n_checkouts
+94	    FROM {BOOK_LOANS_TABLE_NAME}
+95	    WHERE Isbn = ?
+96	      AND Date_in IS NULL
+97	    """
+98	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/borrower.py:22:14
+21	
+22	    sql = f"""
+23	        SELECT
+24	            b.Card_id,
+25	            b.Bname,
+26	            COUNT(
+27	                DISTINCT CASE
+28	                    WHEN l.Date_in IS NULL
+29	                    THEN l.Loan_id
+30	                END
+31	            ) as N_Active_loans,
+32	            COALESCE(SUM(
+33	                CASE
+34	                    WHEN f.Paid = 0
+35	                    THEN f.Fine_amt
+36	                    ELSE 0
+37	                END
+38	            ), 0) as Outstanding_fines
+39	        FROM {BORROWERS_TABLE_NAME} b
+40	        LEFT JOIN {BOOK_LOANS_TABLE_NAME} l ON b.Card_id = l.Card_id
+41	        LEFT JOIN {FINES_TABLE_NAME} f ON l.Loan_id = f.Loan_id
+42	        WHERE LOWER(b.Bname) LIKE LOWER(?)
+43	           OR CAST(b.Card_id AS TEXT) LIKE ?
+44	        GROUP BY b.Card_id, b.Bname
+45	        ORDER BY b.Card_id;
+46	    """
+47	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/borrower.py:67:14
+66	
+67	    sql = f"""
+68	    SELECT
+69	        b.Card_id,
+70	        b.Ssn,
+71	        b.Bname,
+72	        b.Address,
+73	        b.Phone
+74	    FROM {BORROWERS_TABLE_NAME} b
+75	    WHERE {column} = ?
+76	    """
+77	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/borrower.py:122:14
+121	
+122	    sql = f"""
+123	    INSERT INTO {BORROWERS_TABLE_NAME} (
+124	        Bname,
+125	        Ssn,
+126	        Address,
+127	        Phone
+128	    ) VALUES (?, ?, ?, ?)
+129	    """
+130	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/fine.py:18:14
+17	def get_all_fines(paid: bool = False) -> list[FineSearchResult]:
+18	    sql = f"""
+19	    SELECT
+20	        f.Loan_id,
+21	        b.Isbn,
+22	        l.Card_id,
+23	        f.Fine_amt,
+24	        f.Paid,
+25	        l.Date_out,
+26	        l.Due_date,
+27	        l.Date_in
+28	    FROM {FINES_TABLE_NAME} f
+29	    JOIN {BOOK_LOANS_TABLE_NAME} l ON l.Loan_id = f.Loan_id
+30	    JOIN {BOOKS_TABLE_NAME} b ON b.Isbn = l.Isbn
+31	    {'WHERE f.Paid = 0' if not paid else ''}
+32	    ORDER BY l.Date_out DESC
+33	    """
+34	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/fine.py:43:14
+42	def get_fines_by_borrower_id(borrower_id: int, paid: bool = False) -> list[FineSearchResult]:
+43	    sql = f"""
+44	    SELECT
+45	        f.Loan_id,
+46	        b.Isbn,
+47	        l.Card_id,
+48	        f.Fine_amt,
+49	        f.Paid,
+50	        l.Date_out,
+51	        l.Due_date,
+52	        l.Date_in
+53	    FROM {FINES_TABLE_NAME} f
+54	    JOIN {BOOK_LOANS_TABLE_NAME} l ON l.Loan_id = f.Loan_id
+55	    JOIN {BOOKS_TABLE_NAME} b ON b.Isbn = l.Isbn
+56	    WHERE l.Card_id = ? {'AND f.Paid = 0' if not paid else ''}
+57	    ORDER BY l.Date_out DESC
+58	    """
+59	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/fine.py:132:14
+131	def resolve_fines(loan_ids: list[int]) -> bool:
+132	    sql = f"""
+133	        UPDATE {FINES_TABLE_NAME}
+134	        SET Paid = 1
+135	        WHERE Loan_id = ?
+136	    """
+137	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/loan.py:19:14
+18	                 returned: bool = False) -> list[Loan]:
+19	    sql = f"""
+20	SELECT
+21	l.Loan_id,
+22	l.Isbn,
+23	l.Card_id,
+24	b.Title,
+25	l.Date_out,
+26	l.Due_date,
+27	l.Date_in
+28	FROM BOOK_LOANS l
+29	JOIN BOOK b ON b.Isbn = l.Isbn
+30	JOIN BORROWER br ON br.Card_id = l.Card_id
+31	        """
+32	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/loan.py:77:14
+76	def get_loans_by_borrower_id(borrower_id: int, returned: bool = False) -> list[Loan]:
+77	    sql = f"""
+78	SELECT
+79	l.Loan_id,
+80	l.Isbn,
+81	l.Card_id,
+82	b.Title,
+83	l.Date_out,
+84	l.Due_date,
+85	l.Date_in
+86	FROM BOOK_LOANS l
+87	JOIN BOOK b ON b.Isbn = l.Isbn
+88	WHERE l.Card_id = ?
+89	        """
+90	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/loan.py:104:14
+103	def get_loans_by_isbn(isbn: str, returned: bool = False) -> list[Loan]:
+104	    sql = f"""
+105	SELECT
+106	l.Loan_id,
+107	l.Isbn,
+108	l.Card_id,
+109	b.Title,
+110	l.Date_out,
+111	l.Due_date,
+112	l.Date_in
+113	FROM BOOK_LOANS l
+114	JOIN BOOK b ON b.Isbn = l.Isbn
+115	WHERE l.Isbn = ?
+116	        """
+117	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/loan.py:148:14
+147	
+148	    sql = f"""
+149	        INSERT INTO {BOOK_LOANS_TABLE_NAME} (
+150	Isbn,
+151	Card_id,
+152	Date_out,
+153	Due_date,
+154	Date_in
+155	) VALUES (?, ?, ?, ?, NULL)
+156	        """
+157	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/loan.py:185:14
+184	def resolve_loan(loan_id: int) -> OperationResult:
+185	    sql = f"""
+186	        UPDATE {BOOK_LOANS_TABLE_NAME}
+187	SET Date_in = ?
+188	WHERE Loan_id = ?
+189	        """
+190	
+
+--------------------------------------------------
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Low
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: src/database/query/metadata.py:8:14
+7	def get_value(key: str) -> Optional[str]:
+8	    sql = f"""
+9	        SELECT value FROM {METADATA_TABLE_NAME}
+10	        WHERE key = ?
+11	    """
+12	
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 2003
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 6
+		Medium: 19
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 19
+		Medium: 0
+		High: 6
+Files skipped (0):

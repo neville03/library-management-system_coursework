@@ -1,0 +1,15 @@
+28	UP045 	[*] non-pep604-annotation-optional
+17	F401  	[-] unused-import
+11	F541  	[*] f-string-missing-placeholders
+11	F403  	[ ] undefined-local-with-import-star
+10	SIM117	[-] multiple-with-statements
+ 5	F841  	[-] unused-variable
+ 4	E402  	[ ] module-import-not-at-top-of-file
+ 4	E701  	[ ] multiple-statements-on-one-line-colon
+ 3	UP035 	[*] deprecated-import
+ 2	UP046 	[ ] non-pep695-generic-class
+ 2	UP015 	[*] redundant-open-modes
+ 1	SIM102	[ ] collapsible-if
+ 1	E711  	[ ] none-comparison
+Found 99 errors.
+[*] 48 fixable with `--fix` (8 unsafe fixes available with `--fix --unsafe-fixes`).
