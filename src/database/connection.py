@@ -1,6 +1,7 @@
 import os
 import sqlite3
-from typing import Callable, Protocol
+from typing import Protocol
+from collections.abc import Callable
 
 from database import config
 

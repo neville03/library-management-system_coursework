@@ -112,7 +112,7 @@ def pay_fines(borrower_id: int, amt: int) -> OperationResult:
             message="No fines attached to borrower."
         )
 
-    isbn_of_fines_with_active_checkouts = [fine.isbn for fine in fines if fine.date_in == None]
+    isbn_of_fines_with_active_checkouts = [fine.isbn for fine in fines if fine.date_in is None]
     isbns = ", ".join(isbn_of_fines_with_active_checkouts)
 
     if isbn_of_fines_with_active_checkouts:
