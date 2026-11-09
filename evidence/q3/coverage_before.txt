@@ -1,0 +1,54 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/amonkats/Documents/Year3/Advanced-Programming/lms
+configfile: pytest.ini
+testpaths: tests
+plugins: cov-7.1.0, platformdirs-4.14.4
+collected 64 items
+
+tests/test_behaviour.py ..................................               [ 53%]
+tests/test_design_issue.py ..                                            [ 56%]
+tests/test_fine_rules.py ....                                            [ 62%]
+tests/test_known_defects.py ........                                     [ 75%]
+tests/test_loan_rules.py .....                                           [ 82%]
+tests/test_query_helpers.py .........                                    [ 96%]
+tests/test_query_injection.py ..                                         [100%]
+
+=============================== warnings summary ===============================
+src/models/result.py:7
+  /Users/amonkats/Documents/Year3/Advanced-Programming/lms/src/models/result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.14/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.14.3-final-0 _______________
+
+Name                             Stmts   Miss  Cover
+----------------------------------------------------
+src/app.py                          19     19     0%
+src/database/__init__.py             9      0   100%
+src/database/config.py               5      0   100%
+src/database/connection.py          16      0   100%
+src/database/dtypes.py               2      0   100%
+src/database/import_data.py        104     45    57%
+src/database/initialize.py          69     10    86%
+src/database/names.py                7      0   100%
+src/database/query/author.py         7      2    71%
+src/database/query/book.py          43      8    81%
+src/database/query/borrower.py      48      1    98%
+src/database/query/conf.py          21      8    62%
+src/database/query/fine.py          81     10    88%
+src/database/query/loan.py          82     20    76%
+src/database/query/metadata.py      13      1    92%
+src/database/query/query.py         40      0   100%
+src/database/schema.py               2      0   100%
+src/fine_rules.py                    6      0   100%
+src/loan_rules.py                   21      0   100%
+src/logger.py                       32     15    53%
+src/main.py                         51     51     0%
+src/models/__init__.py               2      0   100%
+src/models/dtypes.py                33      0   100%
+src/models/result.py                62      8    87%
+----------------------------------------------------
+TOTAL                              775    198    74%
+======================== 64 passed, 1 warning in 5.16s =========================
