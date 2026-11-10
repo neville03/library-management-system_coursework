@@ -54,27 +54,25 @@ def search_borrowers(search_term: str) -> list[BorrowerSearchResult]:
 
     return [BorrowerSearchResult(**dict(result)) for result in results]
 
+_SELECT_BORROWER_BY_SSN = """
+SELECT b.Card_id, b.Ssn, b.Bname, b.Address, b.Phone
+FROM BORROWER b
+WHERE b.Ssn = ?
+"""
+
+_SELECT_BORROWER_BY_ID = """
+SELECT b.Card_id, b.Ssn, b.Bname, b.Address, b.Phone
+FROM BORROWER b
+WHERE b.Card_id = ?
+"""
+
 def get_borrower_by_ssn(ssn: str) -> Optional[Borrower]:
-    return _get_borrower("Ssn", ssn)
+    return _get_borrower(_SELECT_BORROWER_BY_SSN, ssn)
 
 def get_borrower_by_id(borrower_id: int) -> Optional[Borrower]:
-    return _get_borrower("Card_id", str(borrower_id))
+    return _get_borrower(_SELECT_BORROWER_BY_ID, str(borrower_id))
 
-def _get_borrower(column: str, param: str) -> Optional[Borrower]:
-    if column == 'Card_id':
-        column = 'b.Card_id'
-
-    sql = f"""
-    SELECT
-        b.Card_id,
-        b.Ssn,
-        b.Bname,
-        b.Address,
-        b.Phone
-    FROM {BORROWERS_TABLE_NAME} b
-    WHERE {column} = ?
-    """
-
+def _get_borrower(sql: str, param: str) -> Optional[Borrower]:
     result = query.get_one_or_none(sql, [param])
 
     if not result:
