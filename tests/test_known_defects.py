@@ -26,29 +26,29 @@ def test_DEFECT_partial_isbn_resolves_to_a_different_book(library):
     assert book.isbn == "0195153448"
 
 
-def test_DEFECT_failed_borrower_insert_still_reports_success_message(library, monkeypatch):
+def test_FIXED_failed_borrower_insert_reports_failure_message(library, monkeypatch):
     monkeypatch.setattr(query_module, "try_execute_one", lambda sql, params: False)
 
     result = db.create_borrower("A", "123-45-6789", "addr", "(123) 456-7890")
 
     assert result.status is False
-    assert result.message == "Borrower created successfuly!"      # misleading
+    assert result.message == "Could not save the borrower."
 
 
-def test_DEFECT_failed_checkout_insert_still_reports_success_message(library, monkeypatch):
+def test_FIXED_failed_checkout_insert_reports_failure_message(library, monkeypatch):
     monkeypatch.setattr(query_module, "try_execute_one", lambda sql, params: False)
 
     result = db.create_loan(some_isbns(1)[0], 1)
 
     assert result.status is False
-    assert result.message == "Book successfully checked out!"     # misleading
+    assert result.message == "Could not record the checkout."
 
 
-def test_DEFECT_checkin_of_nonexistent_loan_reports_success(library):
+def test_FIXED_checkin_of_nonexistent_loan_is_rejected(library):
     result = db.checkin(424_242)
 
-    assert result.status is True
-    assert result.message == "Book check in successfully."
+    assert result.status is False
+    assert result.message == "Loan not found."
 
 
 def test_DEFECT_late_return_does_not_update_the_fine(library):
