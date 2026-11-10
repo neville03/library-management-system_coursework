@@ -132,7 +132,9 @@ def create_borrower(name: str, ssn: str, address: str, phone: str) -> OperationR
 
     params = [name, ssn, address, phone]
 
+    succeeded = query.try_execute_one(sql, params)
+
     return OperationResult(
-        status=query.try_execute_one(sql, params),
-        message="Borrower created successfuly!"
+        status=succeeded,
+        message="Borrower created successfully!" if succeeded else "Could not save the borrower."
     )

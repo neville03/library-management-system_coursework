@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/walter/Desktop/Adv-coursework/library-management-system_coursework/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/walter/Desktop/Adv-coursework/library-management-system_coursework
+configfile: pytest.ini
+plugins: cov-7.1.0
+collecting ... collected 8 items
+
+tests/test_known_defects.py::test_DEFECT_partial_isbn_resolves_to_a_different_book PASSED [ 12%]
+tests/test_known_defects.py::test_DEFECT_failed_borrower_insert_still_reports_success_message PASSED [ 25%]
+tests/test_known_defects.py::test_DEFECT_failed_checkout_insert_still_reports_success_message PASSED [ 37%]
+tests/test_known_defects.py::test_DEFECT_checkin_of_nonexistent_loan_reports_success PASSED [ 50%]
+tests/test_known_defects.py::test_DEFECT_late_return_does_not_update_the_fine PASSED [ 62%]
+tests/test_known_defects.py::test_DEFECT_foreign_keys_are_not_enforced PASSED [ 75%]
+tests/test_known_defects.py::test_DEFECT_unwritable_database_path_raises_instead_of_failing_gracefully PASSED [ 87%]
+tests/test_known_defects.py::test_DEFECT_ssn_is_stored_in_plaintext PASSED [100%]
+
+=============================== warnings summary ===============================
+src/models/result.py:7
+  /Users/walter/Desktop/Adv-coursework/library-management-system_coursework/src/models/result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 8 passed, 1 warning in 1.45s =========================

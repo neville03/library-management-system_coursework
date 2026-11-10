@@ -1,0 +1,61 @@
+.........................................FFF....................         [100%]
+=================================== FAILURES ===================================
+__________ test_FIXED_failed_borrower_insert_reports_failure_message ___________
+
+library = '/private/var/folders/6_/7wdxwcfj50s4slx9fp_l6pqc0000gn/T/pytest-of-walter/pytest-7/test_FIXED_failed_borrower_ins0/test.db'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10fbbe180>
+
+    def test_FIXED_failed_borrower_insert_reports_failure_message(library, monkeypatch):
+        monkeypatch.setattr(query_module, "try_execute_one", lambda sql, params: False)
+    
+        result = db.create_borrower("A", "123-45-6789", "addr", "(123) 456-7890")
+    
+        assert result.status is False
+>       assert result.message == "Could not save the borrower."
+E       AssertionError: assert 'Borrower cre... successfuly!' == 'Could not save the borrower.'
+E         
+E         - Could not save the borrower.
+E         + Borrower created successfuly!
+
+tests/test_known_defects.py:35: AssertionError
+__________ test_FIXED_failed_checkout_insert_reports_failure_message ___________
+
+library = '/private/var/folders/6_/7wdxwcfj50s4slx9fp_l6pqc0000gn/T/pytest-of-walter/pytest-7/test_FIXED_failed_checkout_ins0/test.db'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10fbbe8a0>
+
+    def test_FIXED_failed_checkout_insert_reports_failure_message(library, monkeypatch):
+        monkeypatch.setattr(query_module, "try_execute_one", lambda sql, params: False)
+    
+        result = db.create_loan(some_isbns(1)[0], 1)
+    
+        assert result.status is False
+>       assert result.message == "Could not record the checkout."
+E       AssertionError: assert 'Book success... checked out!' == 'Could not re...the checkout.'
+E         
+E         - Could not record the checkout.
+E         + Book successfully checked out!
+
+tests/test_known_defects.py:44: AssertionError
+______________ test_FIXED_checkin_of_nonexistent_loan_is_rejected ______________
+
+library = '/private/var/folders/6_/7wdxwcfj50s4slx9fp_l6pqc0000gn/T/pytest-of-walter/pytest-7/test_FIXED_checkin_of_nonexist0/test.db'
+
+    def test_FIXED_checkin_of_nonexistent_loan_is_rejected(library):
+        result = db.checkin(424_242)
+    
+>       assert result.status is False
+E       AssertionError: assert True is False
+E        +  where True = OperationResult(status=True, message='Book check in successfully.', data=None).status
+
+tests/test_known_defects.py:50: AssertionError
+=============================== warnings summary ===============================
+src/models/result.py:7
+  /Users/walter/Desktop/Adv-coursework/library-management-system_coursework/src/models/result.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class OperationResult(BaseModel, Generic[T]):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_known_defects.py::test_FIXED_failed_borrower_insert_reports_failure_message
+FAILED tests/test_known_defects.py::test_FIXED_failed_checkout_insert_reports_failure_message
+FAILED tests/test_known_defects.py::test_FIXED_checkin_of_nonexistent_loan_is_rejected
+3 failed, 61 passed, 1 warning in 10.40s
