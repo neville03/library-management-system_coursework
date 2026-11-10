@@ -1,0 +1,41 @@
+ evidence/q3/bandit_after.txt                       | 360 +++++++++++++++++
+ evidence/q3/bandit_before.txt                      | 445 +++++++++++++++++++++
+ evidence/q3/bandit_mid.txt                         | 379 ++++++++++++++++++
+ evidence/q3/coverage_before.txt                    |  54 +++
+ evidence/q3/pip_audit_after.txt                    |   1 +
+ evidence/q3/pip_audit_before.txt                   |   1 +
+ evidence/q3/ruff_after_merge_summary.txt           |   9 +
+ evidence/q3/ruff_after_my_fixes.txt                |  12 +
+ evidence/q3/ruff_after_my_fixes_detail.txt         |  90 +++++
+ evidence/q3/ruff_before.txt                        | 101 +++++
+ evidence/q3/ruff_before_summary.txt                |  15 +
+ evidence/q3/ruff_final_summary.txt                 |   7 +
+ evidence/q3/tool_versions.txt                      |   3 +
+ evidence/screenshots/vivian-q3-sonar-after-1.png   | Bin 0 -> 122689 bytes
+ evidence/screenshots/vivian-q3-sonar-after-2.png   | Bin 0 -> 118386 bytes
+ evidence/screenshots/vivian-q3-sonar-before-1.png  | Bin 0 -> 120989 bytes
+ evidence/screenshots/vivian-q3-sonar-before-2.png  | Bin 0 -> 112927 bytes
+ evidence/screenshots/vivian-q3-sonar-before-3.png  | Bin 0 -> 120513 bytes
+ evidence/screenshots/vivian-q3-sonar-before-4.png  | Bin 0 -> 111421 bytes
+ ruff.toml                                          |   4 +
+ screenshots/neville-q3-ruff-after-merge.png        | Bin 0 -> 168501 bytes
+ screenshots/neville-q3-ruff-after-my-fixes.png     | Bin 0 -> 249275 bytes
+ screenshots/neville-q3-ruff-before.png             | Bin 0 -> 326987 bytes
+ screenshots/neville-q3-ruff-final.png              | Bin 0 -> 164048 bytes
+ .../neville-q3-tests-and-push-after-merge.png      | Bin 0 -> 241888 bytes
+ src/database/connection.py                         |   3 +-
+ src/database/import_data.py                        |  23 +-
+ src/database/initialize.py                         |   2 +-
+ src/database/query/borrower.py                     |  46 ++-
+ src/database/query/fine.py                         |   8 +-
+ src/database/query/loan.py                         |  14 +-
+ src/database/query/query.py                        |   3 +-
+ src/logger.py                                      |  16 +-
+ src/main.py                                        |  10 +-
+ src/ui/modals/book_detail.py                       |   4 +-
+ src/ui/modals/borrower_detail.py                   |  19 +-
+ src/ui/modals/settings.py                          |  12 +-
+ src/ui/screens/book_search.py                      |   8 +-
+ src/ui/screens/borrower_search.py                  |   8 +-
+ src/ui/screens/search.py                           |  15 +-
+ 40 files changed, 1576 insertions(+), 96 deletions(-)
