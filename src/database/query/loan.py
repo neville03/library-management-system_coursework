@@ -161,9 +161,11 @@ Date_in
 
     params = [isbn, borrower_id, today.isoformat(), due_date_for(today).isoformat()]
 
+    succeeded = query.try_execute_one(sql, params)
+
     return OperationResult(
-        status=query.try_execute_one(sql, params),
-        message="Book successfully checked out!"
+        status=succeeded,
+        message="Book successfully checked out!" if succeeded else "Could not record the checkout."
     )
 
 def checkin_many(loans: list[Loan]) -> OperationResult:
@@ -184,6 +186,9 @@ def checkin(loan_id: int) -> OperationResult:
     return db.resolve_loan(loan_id)
 
 def resolve_loan(loan_id: int) -> OperationResult:
+    if query.get_one_or_none("SELECT 1 FROM BOOK_LOANS WHERE Loan_id = ?", [loan_id]) is None:
+        return OperationResult(status=False, message="Loan not found.")
+
     sql = f"""
         UPDATE {BOOK_LOANS_TABLE_NAME}
 SET Date_in = ?
@@ -199,5 +204,5 @@ WHERE Loan_id = ?
 
     return OperationResult(
         status=success,
-        message="Book check in successfully."
+        message="Book check in successfully." if success else "Could not record the check-in."
     )
